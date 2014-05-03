@@ -17,10 +17,29 @@ Install required packages:
 
 Install ghc
 
+    cabal install Network
+
 
 ### GO
 
 Install go
+
+
+### Node
+
+Install node
+
+
+### Clojure
+
+Install clojure and leiningen. Finally:
+
+    cd httpserver && lein install
+
+
+### C (libev)
+
+Install cc and libev-dev
 
 
 ## HTTP server performance

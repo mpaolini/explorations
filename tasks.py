@@ -1,18 +1,24 @@
 from invoke import run, task
 import subprocess
 import re
+import os
 
 
 @task
 def compile():
     run('cd httpserver && go build -o server_go.out server.go')
     run('cd httpserver && ghc -o server_haskell.out server.hs')
+    run('cd httpserver/c_libev && gcc -O2 server.c -l ev')
+    # XXX does not work
+    run('cd httpserver/clojure && lein install')  
 
 
 @task
 def perf():
-    for impl in ['server.py', 'server_haskell.out', 'server_go.out']:
-        server = subprocess.Popen(['httpserver/{}'.format(impl)])
+    os.chdir('httpserver')
+    # TODO: add clojure
+    for impl in [['python', 'server.py'], ['server_haskell.out'], ['server_go.out'], ['node', 'server.js'], ['c_libev/a.out']]:
+        server = subprocess.Popen(impl)
         perf = subprocess.check_output(['httperf', '--server=localhost',
                                         '--port=8000', '--uri=/',
                                         '--num-conns=5000', '--hog'],
