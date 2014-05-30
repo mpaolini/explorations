@@ -9,9 +9,9 @@ def compile():
     run('cd httpserver && go build -o server_go.out server.go')
     run('cd httpserver && ghc -o server_haskell.out server.hs')
     run('cd httpserver/c_libev && gcc -O2 server.c -l ev')
-    run('cd httpserver/cpp_boost && g++ -O2 server.c -l boost_system')
+    run('cd httpserver/cpp_boost && g++ -O2 server.cpp -l boost_system')
     # XXX does not work
-    run('cd httpserver/clojure && lein install')  
+    run('cd httpserver/clojure && lein install')
 
 
 @task
@@ -28,4 +28,3 @@ def perf():
         mo = re.search(r'^Request rate: ([0-9\.]+) .*', perf.decode(),
                        re.MULTILINE)
         print('{server} {out}'.format(server=impl, out=mo.group(1)))
-

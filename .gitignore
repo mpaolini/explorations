@@ -2,5 +2,11 @@
 *.o
 *.out
 *.hi
+*.pyc
+.DS_Store
 __pycache__
 virtual/
+httpserver/scala/project/target/*
+httpserver/scala/project/project/*
+httpserver/scala/target/*
+httpserver/scala/logs/*
